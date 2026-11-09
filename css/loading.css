@@ -1,0 +1,39 @@
+/* 開場載入動畫（主代理擁有，搭配 js/loading.js）。色票沿用 base.css。 */
+.ld-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background:
+    radial-gradient(circle at 10px 10px, rgba(242,175,192,.22) 2px, transparent 2.5px) 0 0 / 28px 28px,
+    var(--cream);
+  transition: opacity .35s ease;
+}
+.ld-overlay.ld-out { opacity: 0; pointer-events: none; }
+.ld {
+  height: 100%; max-width: 480px; margin: 0 auto; box-sizing: border-box;
+  display: flex; flex-direction: column; align-items: center;
+  padding: max(20px, calc(var(--safe-top) + 12px)) max(16px, env(safe-area-inset-right, 0px)) max(28px, calc(var(--safe-bottom) + 16px)) max(16px, env(safe-area-inset-left, 0px));
+}
+.ld-name { font: 700 22px/1.2 var(--serif); letter-spacing: .12em; color: var(--cocoa); margin-top: 6px; }
+.ld-sub { font: italic 13px/1 var(--latin); color: var(--cocoa-soft); letter-spacing: .08em; margin-top: 6px; }
+.ld-stage { flex: 1; width: 100%; display: grid; place-items: center; min-height: 0; }
+.ld-stage canvas { display: block; width: 100%; max-width: 420px; height: auto; }
+.ld-bottom { width: 100%; max-width: 420px; display: grid; gap: 8px; }
+.ld-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.ld-msg { margin: 0; font: 700 16px/1.3 var(--serif); color: var(--cocoa); letter-spacing: .04em; }
+.ld-dots span { display: inline-block; animation: ld-hop 1s infinite ease-in-out; }
+.ld-dots span:nth-child(2) { animation-delay: .15s; }
+.ld-dots span:nth-child(3) { animation-delay: .3s; }
+@keyframes ld-hop { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+.ld-pct { font: 700 16px/1 var(--sans); font-variant-numeric: tabular-nums; color: var(--pink-deep); min-width: 3.2em; text-align: right; }
+.ld-bar {
+  position: relative; height: 18px; border-radius: 99px; overflow: hidden;
+  background: var(--paper); box-shadow: inset 0 0 0 1.5px var(--line), inset 0 2px 4px rgba(150,110,80,.12);
+}
+.ld-fill {
+  position: absolute; inset: 0 auto 0 0; width: 0%; border-radius: 99px;
+  background: repeating-linear-gradient(135deg, var(--pink) 0 10px, #F7C6D2 10px 20px);
+  background-size: 28.28px 28.28px;
+  animation: ld-stripes .7s linear infinite;
+  box-shadow: inset 0 -3px 0 rgba(201,112,138,.25), inset 0 2px 0 rgba(255,255,255,.55);
+}
+@keyframes ld-stripes { to { background-position: 28.28px 0; } }
+@media (prefers-reduced-motion: reduce) { .ld-fill, .ld-dots span { animation: none; } }
